@@ -12,7 +12,6 @@ for i in range(0, numdevices):
     if(p.get_device_info_by_host_api_device_index(0,i).get('maxOutputChannels')) > 0:
         print("Input Device id ", i, " - ",p.get_device_info_by_host_api_device_index(0, i).get('name'))
 """
-# sys.path.insert(0, 'C:\\Users\\alexa\\Desktop\\Codigos\\PDS\\Nueva carpeta')
 
 
 
