@@ -5,11 +5,9 @@ Created on Mon Mar 28 11:58:41 2022
 @author: https://github.com/aletbm
 """
 import numpy as np
-from numba import jit
 import scipy.signal as sg
 
 
-@jit(nopython=True)
 def LFO(n, fs, delay_sec, depth, fLFO):
     """
     Funcion que simula el compartamiento de un oscilador de baja frecuencia (LFO - Low Frecuency Oscillator),
@@ -41,7 +39,6 @@ def LFO(n, fs, delay_sec, depth, fLFO):
     return M
 
 
-@jit(nopython=True)
 def delay_LFO(data, fs, delay_sec, depth, fLFO):
     """
     Retardo modulado por un LFO
@@ -120,7 +117,6 @@ def flanger(data, fs, dry=1, wet=1, delay_sec=0.002, depth=0.0001, fLFO=20):
     return out*maximo
 
 
-@jit(nopython=True)
 def flanger_feedback(data, fs, dry=1, wet=1, delay_sec=0.002, depth=0.0001, fLFO=20, bounces=5, gfb=0.8):
     """
     VER funcion 'flanger'. Efecto flanger con realimentacion de la señal retardada.
@@ -153,18 +149,18 @@ def flanger_feedback(data, fs, dry=1, wet=1, delay_sec=0.002, depth=0.0001, fLFO
         Array de datos de audio procesados con el efecto flanger realimentado.
 
     """
-    out = data.copy().astype(np.float32)
-    out_feed = data.copy().astype(np.float32)
+    out = data.copy()
+    out_feed = data.copy()
 
     maximo = np.max(np.abs(data))
     out = out/maximo
     out_feed = out_feed/np.max(np.abs(out_feed))
 
     for i in range(1, bounces+1):
-        delay_data = (delay_LFO(
-            out_feed, fs=fs, delay_sec=delay_sec, depth=depth, fLFO=fLFO)*gfb).astype(np.float32)  # Delay variable
+        delay_data = delay_LFO(
+            out_feed, fs=fs, delay_sec=delay_sec, depth=depth, fLFO=fLFO)*gfb  # Delay variable
         padding_zero = np.zeros(
-            len(out_feed) - len(delay_data)).astype(np.float32)
+            len(out_feed) - len(delay_data))
         out_feed = np.concatenate(
             (out_feed, padding_zero)) + np.concatenate((padding_zero, delay_data))
 
@@ -270,7 +266,6 @@ def normalize(data, g_db=0, volumen=32767):
     return out
 
 
-@jit(forceobj=True)
 def basic_delay(data, fs, delay_sec=0.5, g=1):
     """
     Efecto DELAY. Un delay basico consiste en reproducir un sonido despues de tiempo de retardo especifico
@@ -302,7 +297,6 @@ def basic_delay(data, fs, delay_sec=0.5, g=1):
     return out
 
 
-@jit(forceobj=True)
 def delay_feedback(data, fs, dry=1, wet=0.5, delay_sec=0.5, gfb=0.5, bounces=20):
     """
     VER funcion 'basic_delay'. Efecto delay con realimentacion de la señal retardada.
@@ -628,7 +622,6 @@ def vocoder(data, fs, mod_rate=1, overlap=1, n=0, window="Bartlett", vocalFx="Ro
     # return X_time
 
 
-@jit(forceobj=True)
 def distortion(data, g_db, distortionType, threshold):
     """
     El efecto DISTORTION es un efecto no lineal que puede ser descrito por una infinidad de curvas
