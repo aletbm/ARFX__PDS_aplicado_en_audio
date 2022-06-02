@@ -1,0 +1,2321 @@
+<Knob>:
+    size: 50, 50
+    min: 0
+    max: 101
+    step: 1
+    value: 0  # Default position of knob.
+    knobimg_source: "img/knob_black.png"  # Knob texture
+    show_marker: True  # Show surrounding marker
+    marker_img: "img/bline3.png" # Marker texture image
+    knob_size: 10  # Scales knob size to leave space for marker
+    markeroff_color: 0, 0, 0, 0
+
+<TextInput>:
+    background_color: (73/255, 73/255, 73/255, 1)
+    foreground_color:(0,1,1,1)
+    font_size: 12
+    border: (1,1,1,0)
+    size_hint: (1, 1)
+    multiline: False
+
+<Label>
+    font_size: 15
+##################################################################################################################       
+<myTabLPHP>:
+    orientation: "horizontal"    
+    BoxLayout:
+        id: graph
+        size_hint_x: 1.2
+        padding: [0, 0, 0, 10]
+        
+    GridLayout:
+        rows: 4
+        size_hint_x: 0.5
+        
+        BoxLayout:
+            Knob:
+                id: knobFc
+                min: 20
+                max: 20000
+                on_touch_move: root.filters_knob("knobFc")
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Cutoff frequency"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueFc
+                        text: "1000"
+                        on_text: root.filter_inputs(self.text, "knobFc")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "Hz"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        BoxLayout:    
+            Knob:
+                id: knobAtt
+                on_touch_move: root.filters_knob("knobAtt")
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Attenuation"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueAtt
+                        text: "30"
+                        on_text:  root.filter_inputs(self.text, "knobAtt")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "dB"
+                        valign: "middle"
+                        padding:(5, 0)
+            
+        BoxLayout:    
+            Knob:
+                id: knobGain
+                on_touch_move: root.filters_knob("knobGain")
+                max: 11
+                step: 0.1
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Gain"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueGain
+                        text: "0"
+                        on_text:  root.filter_inputs(self.text, "knobGain")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "dB"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        Widget:
+            size_hint_y: 0.3
+            
+    Widget:
+        size_hint_x: 0.1
+##################################################################################################################   
+<myTabBP>:
+    orientation:"horizontal"
+    
+    BoxLayout:
+        id: graph
+        size_hint_x: 0.8
+        padding: [10, 0, 0, 10]
+        
+    GridLayout:
+        size_hint_x: 0.6
+        cols: 2
+        rows: 3
+        
+        BoxLayout:
+            Knob:
+                id: knobFci
+                min: 20
+                max: 20000
+                on_touch_move: root.filters_knob("knobFci") 
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Lower cutoff frequency"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueFci
+                        text: "500"
+                        on_text: root.filter_inputs(self.text, "knobFci")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "Hz"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        BoxLayout:
+            Knob:
+                id: knobFcs
+                min: 20
+                max: 20000
+                on_touch_move: root.filters_knob("knobFcs")  
+                  
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Upper cutoff frequency"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueFcs
+                        text: "3500"
+                        on_text: root.filter_inputs(self.text, "knobFcs")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "Hz"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        BoxLayout:    
+            Knob:
+                id: knobAtt
+                on_touch_move: root.filters_knob("knobAtt")
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Attenuation"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueAtt
+                        text: "30"
+                        on_text:  root.filter_inputs(self.text, "knobAtt")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "dB"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        BoxLayout:    
+            Knob:
+                id: knobGain
+                on_touch_move: root.filters_knob("knobGain")
+                max: 11
+                step: 0.1 
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Gain"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueGain
+                        text: "0"
+                        on_text:  root.filter_inputs(self.text, "knobGain")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "dB"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        Widget:
+            size_hint_y: 0.3
+            
+    Widget:
+        size_hint_x: 0.1
+##################################################################################################################   
+<myTabN>:              
+    orientation: "horizontal"   
+    BoxLayout:
+        id: graph
+        size_hint_x: 1.2
+        padding: [0, 0, 0, 10]
+        
+    GridLayout:
+        size_hint_x: 0.5
+        rows: 4
+
+        BoxLayout:
+            Knob:
+                id: knobFc
+                min: 20
+                max: 20000
+                on_touch_move: root.filters_knob("knobFc")
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Cutoff frequency"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueFc
+                        text: "1000"
+                        on_text: root.filter_inputs(self.text, "knobFc")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "Hz"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        BoxLayout:    
+            Knob:
+                id: knobQ
+                on_touch_move: root.filters_knob("knobQ")
+                max: 11
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Quality"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueQ
+                        text: "2"
+                        on_text:  root.filter_inputs(self.text, "knobQ")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "dB"
+                        valign: "middle"
+                        padding:(5, 0)
+        BoxLayout:    
+            Knob:
+                id: knobGain
+                on_touch_move: root.filters_knob("knobGain")
+                max: 11
+                step: 0.1
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Gain"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueGain
+                        text: "0"
+                        on_text:  root.filter_inputs(self.text, "knobGain")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "dB"
+                        valign: "middle"
+                        padding:(5, 0)
+                        
+        Widget:
+            size_hint_y: 0.3
+            
+    Widget:
+        size_hint_x: 0.1
+##################################################################################################################   
+<myTabDelay>:
+    orientation: "horizontal"
+    padding:(self.size[0]/12, 0, 0, 0)
+    BoxLayout:
+        size_hint_x: 1
+        orientation: "vertical"  
+        
+        Widget:
+            size_hint_y: 0.1
+            
+        GridLayout:
+            size_hint_y: 0.7
+            cols: 3
+            rows: 2
+            
+            BoxLayout:
+                Knob:
+                    id: knobDry
+                    max: 100
+                    on_touch_move: root.filters_knob("knobDry")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Dry"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDry
+                            text: "100"
+                            on_text: root.filter_inputs(self.text, "knobDry")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:
+                Knob:
+                    id: knobOffset
+                    max: 500
+                    on_touch_move: root.filters_knob("knobOffset")   
+                     
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Offset"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueOffset
+                            text: "500.0"
+                            on_text: root.filter_inputs(self.text, "knobOffset")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "ms"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:    
+                Knob:
+                    id: knobGFeed
+                    max: 100
+                    on_touch_move: root.filters_knob("knobGFeed")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Feedback level"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueGFeed
+                            text: "50"
+                            on_text:  root.filter_inputs(self.text, "knobGFeed")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:    
+                Knob:
+                    id: knobWet
+                    on_touch_move: root.filters_knob("knobWet")
+                    max: 100
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Wet"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueWet
+                            text: "50"
+                            on_text:  root.filter_inputs(self.text, "knobWet")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:            
+                Knob:
+                    id: knobRoom
+                    on_touch_move: root.filters_knob("knobRoom")
+                    max: 20
+                    step: 0.1 
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Size Room"
+                        size_hint: (1, 0.5)
+        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (0.5, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        TextInput:
+                            id: valueRoom
+                            text: "20"
+                            on_text:  root.filter_inputs(self.text, "knobRoom")
+        Widget:
+            size_hint_y: 0.2
+##################################################################################################################   
+<myTabFlanger>:
+    orientation: "horizontal"
+    padding:(self.size[0]/12, 0, 0, 0)
+    BoxLayout:
+        size_hint_x: 1
+        orientation: "vertical"  
+        
+        Widget:
+            size_hint_y: 0.1
+            
+        GridLayout:
+            size_hint_y: 0.7
+            cols: 3
+            rows: 2
+            
+            BoxLayout:
+                Knob:
+                    id: knobDry
+                    max: 100
+                    on_touch_move: root.filters_knob("knobDry")
+                     
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Dry"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDry
+                            text: "100"
+                            on_text: root.filter_inputs(self.text, "knobDry")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:
+                Knob:
+                    id: knobDelay
+                    max: 20
+                    on_touch_move: root.filters_knob("knobDelay")   
+                     
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Delay"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDelay
+                            text: "2.0"
+                            on_text: root.filter_inputs(self.text, "knobDelay")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "ms"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:    
+                Knob:
+                    id: knobDepth
+                    max: 10
+                    on_touch_move: root.filters_knob("knobDepth")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Depth"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDepth
+                            text: "0.1"
+                            on_text:  root.filter_inputs(self.text, "knobDepth")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "ms"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:    
+                Knob:
+                    id: knobWet
+                    on_touch_move: root.filters_knob("knobWet")
+                    max: 100
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Wet"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueWet
+                            text: "100"
+                            on_text:  root.filter_inputs(self.text, "knobWet")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+            BoxLayout:            
+                Knob:
+                    id: knobLFO
+                    max: 20
+                    on_touch_move: root.filters_knob("knobLFO")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Frecuency LFO"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueLFO
+                            text: "10.0"
+                            on_text:  root.filter_inputs(self.text, "knobLFO")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "Hz"
+                            valign: "middle"
+                            padding:(5, 0)
+
+        Widget:
+            size_hint_y: 0.2
+##################################################################################################################   
+<myTabChorus>:
+    orientation: "horizontal"
+    padding:(self.size[0]/12, 0, 0, 0)
+    BoxLayout:
+        size_hint_x: 1
+        orientation: "vertical"  
+        
+        Widget:
+            size_hint_y: 0.1
+            
+        GridLayout:
+            size_hint_y: 0.7
+            cols: 4
+            rows: 2
+            
+            BoxLayout:
+                Knob:
+                    id: knobWet1
+                    on_touch_move: root.filters_knob("knobWet1")
+                    max: 101
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Wet 1"
+                        size_hint: (1, 0.5)
+
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueWet1
+                            text: "50"
+                            on_text:  root.filter_inputs(self.text, "knobWet1")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:       
+                Knob:
+                    id: knobLFO1
+                    max: 20
+                    on_touch_move: root.filters_knob("knobLFO1")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Frecuency LFO 1"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueLFO1
+                            text: "20.0"
+                            on_text:  root.filter_inputs(self.text, "knobLFO1")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "Hz"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:                    
+                Knob:
+                    id: knobDelay
+                    max: 60
+                    on_touch_move: root.filters_knob("knobDelay") 
+                       
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Delay"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDelay
+                            text: "2.0"
+                            on_text: root.filter_inputs(self.text, "knobDelay")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "ms"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:                         
+                Knob:
+                    id: knobDry
+                    max: 101
+                    on_touch_move: root.filters_knob("knobDry") 
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Dry"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDry
+                            text: "100"
+                            on_text: root.filter_inputs(self.text, "knobDry")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+            BoxLayout:                    
+                Knob:
+                    id: knobWet2
+                    on_touch_move: root.filters_knob("knobWet2")
+                    max: 101
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Wet 2"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueWet2
+                            text: "50"
+                            on_text:  root.filter_inputs(self.text, "knobWet2")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:                           
+                Knob:
+                    id: knobLFO2
+                    max: 20
+                    on_touch_move: root.filters_knob("knobLFO2")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Frecuency LFO 2"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueLFO2
+                            text: "10.0"
+                            on_text:  root.filter_inputs(self.text, "knobLFO2")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "Hz"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:            
+                Knob:
+                    id: knobDepth
+                    max: 20
+                    on_touch_move: root.filters_knob("knobDepth")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Depth"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDepth
+                            text: "0.1"
+                            on_text:  root.filter_inputs(self.text, "knobDepth")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "ms"
+                            valign: "middle"
+                            padding:(5, 0)
+        Widget:
+            size_hint_y: 0.2
+##################################################################################################################   
+<myTabReverb>:
+    orientation: "horizontal"
+    padding:(self.size[0]/12, 0, 0, 0)
+    BoxLayout:
+        size_hint_x: 1
+        orientation: "vertical"  
+        
+        Widget:
+            size_hint_y: 0.1
+            
+        GridLayout:
+            size_hint_y: 0.7
+            cols: 3
+            rows: 2
+            
+            BoxLayout:
+                Knob:
+                    id: knobDry
+                    on_touch_move: root.filters_knob("knobDry")
+                    max: 101
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Dry"
+                        size_hint: (1, 0.5)
+
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDry
+                            text: "100"
+                            on_text:  root.filter_inputs(self.text, "knobDry")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:       
+                Knob:
+                    id: knobRoom
+                    min: 40
+                    max: 101
+                    on_touch_move: root.filters_knob("knobRoom")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Room Size"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (0.5, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueRoom
+                            text: "40"
+                            on_text:  root.filter_inputs(self.text, "knobRoom")
+               
+            BoxLayout:                    
+                Knob:
+                    id: knobColorless
+                    max: 101
+                    on_touch_move: root.filters_knob("knobColorless") 
+                       
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Colorless"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (0.5, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueColorless
+                            text: "35"
+                            on_text: root.filter_inputs(self.text, "knobColorless")
+                            
+            BoxLayout:                    
+                Knob:
+                    id: knobWet
+                    on_touch_move: root.filters_knob("knobWet")
+                    max: 101
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Wet"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueWet
+                            text: "50"
+                            on_text:  root.filter_inputs(self.text, "knobWet")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+            BoxLayout:            
+                Knob:
+                    id: knobDiff
+                    max: 11
+                    on_touch_move: root.filters_knob("knobDiff")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Diffusion"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (0.5, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueDiff
+                            text: "5"
+                            on_text:  root.filter_inputs(self.text, "knobDiff")
+                            
+            BoxLayout:                           
+                Knob:
+                    id: knobGColorless
+                    max: 101
+                    on_touch_move: root.filters_knob("knobGColorless")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Gain Colorless"
+                        size_hint: (1, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueGColorless
+                            text: "70"
+                            on_text:  root.filter_inputs(self.text, "knobGColorless")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "%"
+                            valign: "middle"
+                            padding:(5, 0)
+                            
+        Widget:
+            size_hint_y: 0.2
+##################################################################################################################   
+<myTabAlien>:
+    orientation: "horizontal"              
+ 
+    BoxLayout:
+        size_hint_x: 1.2
+        id: graph
+        padding: [0, 0, 0, 10]
+        
+    GridLayout:
+        size_hint_x: 0.5
+        rows: 4
+        
+        Widget:
+            size_hint_y: 0.1
+        
+        BoxLayout:
+            orientation: 'horizontal' 
+            size_hint_y: 0.35
+            
+            Knob:
+                id: knobF
+                min: 1
+                max: 50
+                on_touch_move: root.filters_knob("knobF")
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Modulation Frequency"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueF
+                        text: "1.0"
+                        on_text: root.filter_inputs(self.text, "knobF")
+                        
+                    Label:
+                        text_size: self.size
+                        text: "Hz"
+                        valign: "middle"
+                        padding:(5, 0)
+                    
+        BoxLayout:
+            orientation: 'horizontal' 
+            size_hint_y: 0.35 
+            
+            Knob:
+                id: knobHarm
+                on_touch_move: root.filters_knob("knobHarm")
+                min: 1
+                max: 10
+                
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(10, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Harmonics"
+                    size_hint: (None, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (0.5, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    TextInput:
+                        id: valueHarm
+                        text: "1"
+                        on_text:  root.filter_inputs(self.text, "knobHarm")
+        Widget:
+            size_hint_y: 0.2
+                
+    Widget:
+        size_hint_x: 0.1
+            
+##################################################################################################################   
+<myTabTremolo>:
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.8
+        
+        Widget:
+            size_hint_x: 0.4 
+        
+        GridLayout:
+            size_hint_x: 0.3
+            rows: 2
+            
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.5
+                
+                Knob:
+                    id: knobLFO
+                    min: 1
+                    max: 5000
+                    on_touch_move: root.filters_knob("knobLFO")
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"LFO"
+                        size_hint: (None, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueLFO
+                            text: "10"
+                            on_text: root.filter_inputs(self.text, "knobLFO")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "Hz"
+                            valign: "middle"
+                            padding:(5, 0)
+                                 
+            BoxLayout:
+                orientation: 'horizontal'    
+                size_hint_y: 0.5
+                
+                Knob:
+                    id: knobAmp
+                    on_touch_move: root.filters_knob("knobAmp")
+                    min: 1
+                    max: 10
+                    
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding:(10, 0, 0, 0)
+                    size_hint_y: None
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Amplitude"
+                        size_hint: (None, 0.5)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 0.3)
+                        padding:(0, self.size[1]/4, 0, 0)
+                        
+                        TextInput:
+                            id: valueAmp
+                            text: "1"
+                            on_text:  root.filter_inputs(self.text, "knobAmp")
+                            
+                        Label:
+                            text_size: self.size
+                            text: "dB"
+                            valign: "middle"
+                            padding:(5, 0)
+        Widget:
+            size_hint_x: 0.3
+    Widget:
+        size_hint_y: 0.2
+##################################################################################################################   
+<SpinnerOption>:
+    size_hint: 1, None
+    height: 35
+    background_color:[0.3, 0.3, 0.3, 0.8]
+
+<myTabDistortion>:
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint_y: 0.9
+        
+        Widget:
+            size_hint_x: 0.3 
+        
+        GridLayout:
+            size_hint_x: 0.5
+            rows: 2
+            
+            BoxLayout:
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: 0.5
+                    
+                    Knob:
+                        id: knobPreAmp
+                        min: 0
+                        max: 50
+                        on_touch_move: root.filters_knob("knobPreAmp")
+                        
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding:(10, 0, 0, 0)
+                        size_hint_y: None
+                        
+                        Label:
+                            text_size: self.size
+                            text:"Pre-Amplifier"
+                            size_hint: (None, 0.5)
+                            
+                        BoxLayout:
+                            orientation:'horizontal'
+                            size_hint: (1, 0.3)
+                            padding:(0, self.size[1]/4, 0, 0)
+                            
+                            TextInput:
+                                id: valuePreAmp
+                                text: "1.0"
+                                on_text: root.filter_inputs(self.text, "knobPreAmp")
+                                
+                            Label:
+                                text_size: self.size
+                                text: "dB"
+                                valign: "middle"
+                                padding:(5, 0)
+                                     
+                BoxLayout:
+                    orientation: 'horizontal'    
+                    size_hint_y: 0.5
+                    
+                    Knob:
+                        id: knobThresh
+                        on_touch_move: root.filters_knob("knobThresh")
+                        min: 0
+                        max: 101
+                        
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding:(10, 0, 0, 0)
+                        size_hint_y: None
+                        
+                        Label:
+                            text_size: self.size
+                            text:"Threshold"
+                            size_hint: (None, 0.5)
+                            
+                        BoxLayout:
+                            orientation:'horizontal'
+                            size_hint: (1, 0.3)
+                            padding:(0, self.size[1]/4, 0, 0)
+                            
+                            TextInput:
+                                id: valueThresh
+                                text: "100"
+                                on_text:  root.filter_inputs(self.text, "knobThresh")
+                                
+                            Label:
+                                text_size: self.size
+                                text: "%"
+                                valign: "middle"
+                                padding:(5, 0)
+                            
+            BoxLayout:
+                orientation: 'vertical'
+                padding:(self.size[0]/5, 0, 0, 0)
+                size_hint_y: None
+                
+                Label:
+                    text_size: self.size
+                    text:"Distortion Type"
+                    size_hint: (1, 0.5)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 0.3)
+                    padding:(0, self.size[1]/4, 0, 0)
+                    
+                    Spinner:
+                        id: spinnerDistype
+                        background_color:[0.2, 0.2, 0.2, 1]
+                        size_hint: None, None
+                        size: 200, 35
+                        text: 'Hard Clipping'
+                        values: 'Hard Clipping', 'Soft Clipping', 'Soft Clipping Exponential', 'Full Wave Rectifier', 'Half Wave Rectifier'
+                        on_text: root.on_spinner_select(self.text)
+        Widget:
+            size_hint_x: 0.2
+    Widget:
+        size_hint_y: 0.2
+##################################################################################################################   
+<SpinnerOption>:
+    size_hint: 1, None
+    height: 35
+    background_color:[0.3, 0.3, 0.3, 0.8]
+
+<myTabVocoder>:
+    orientation: "horizontal"
+    Widget:
+        size_hint_x: 0.65
+        
+    BoxLayout:
+        orientation: 'vertical'
+        
+        GridLayout:
+            size_hint_x: 0.5
+            rows: 4
+            
+            BoxLayout:
+                size_hint_y: 0.8/3
+                orientation: 'vertical'
+
+                Label:
+                    text_size: self.size
+                    text:"Window Type"
+                    size_hint: (1, 1)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 1)
+                    
+                    Spinner:
+                        id: spinnerWindow
+                        background_normal: ""
+                        background_color:[182/255, 199/255, 211/255, 1]
+                        size_hint: None, None
+                        size: 200, 35
+                        text: 'Bartlett'
+                        values: 'Hann', 'Hamming', 'Blackman', 'Bartlett', 'Kaiser', 'Tukey', 'Rectangular'
+                        on_text: root.on_spinner_select(self.text)
+        
+                                     
+            BoxLayout:
+                size_hint_y: 0.8/3
+                orientation: 'vertical'
+                
+                Label:
+                    text_size: self.size
+                    text:"Vocal FX"
+                    size_hint: (1, 1)
+                    
+                BoxLayout:
+                    orientation:'horizontal'
+                    size_hint: (1, 1)
+                    
+                    Spinner:
+                        id: spinnerVocal
+                        background_normal: ""
+                        background_color:[101/255, 142/255, 199/255, 1]
+                        size_hint: None, None
+                        size: 200, 35
+                        text: 'Robot'
+                        values: 'Robot', 'Whisper', 'Pitch Shifter'
+                        on_text: root.on_spinner_select(self.text)
+            
+            BoxLayout:
+                size_hint_y: 0.8/3     
+                   
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_x: 1/3
+                    
+                    Label:
+                        text_size: self.size
+                        text:"Mod Rate"
+                        size_hint: (1, 1)
+                        
+                    BoxLayout:
+                        orientation:'horizontal'
+                        size_hint: (1, 1)
+                        
+                        Spinner:
+                            id: spinnerModRate
+                            background_normal: ""
+                            background_color:[12/255, 77/255, 130/255, 1]
+                            size_hint: None, None
+                            size: 50, 35
+                            text: '1/2'
+                            values: '1/32', '1/16', '1/8', '1/4', '3/8', '1/2', '3/4', '1/1', '2/1', '3/1', '4/1', '5/1', '6/1', '7/1'
+                            on_text: root.on_spinner_select(self.text)
+                            
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_x: 1/3 + 0.15
+                    
+                    Knob:
+                        id: knobOver
+                        size: 40, 40
+                        on_touch_move: root.filters_knob("knobOver")
+                        min: 1
+                        max: 100
+                        
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding:(10, 0, 0, 0)
+                        size_hint_y: None
+                        
+                        Label:
+                            text_size: self.size
+                            text:"Overlap"
+                            size_hint: (None, 0.5)
+                            
+                        BoxLayout:
+                            orientation:'horizontal'
+                            size_hint: (1, 0.3)
+                            
+                            TextInput:
+                                id: valueOver
+                                text: "75"
+                                on_text:  root.filter_inputs(self.text, "knobOver")
+                                
+                            Label:
+                                text_size: self.size
+                                text: "%"
+                                valign: "middle"
+                                padding:(5, 0)
+                
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_x: 0.15
+                    BoxLayout:
+                        orientation: 'vertical'
+                        padding:(10, 0, 0, 0)
+                        size_hint_y: None
+                        
+                        Label:
+                            text_size: self.size
+                            text:"Pitch"
+                            size_hint: (None, 0.5)
+                            
+                        BoxLayout:
+                            orientation:'horizontal'
+                            size_hint: (1, 0.3)
+                            
+                            TextInput:
+                                id: valuePitch
+                                disabled: True
+                                text: "0"
+                                on_text:  root.filter_inputs(self.text, "knobPitch")
+        Widget:
+            size_hint_y: 0.1
+            
+##################################################################################################################   
+<SpinnerOption>:
+    size_hint: 1, None
+    height: 35
+    background_color:[0.3, 0.3, 0.3, 0.8]
+    font_size: 10
+
+<myTabPiano>:
+    orientation: "horizontal"
+    Widget:
+        size_hint_x: 0.05
+        
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: 0.25
+        GridLayout:
+            size_hint_x: 0.9
+            rows: 5
+            
+            Widget:
+                size_hint_y: 0.1
+                
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint_y: 0.3
+                BoxLayout:
+                    size_hint_x: 0.5
+                    Label:
+                        valign: "middle"
+                        text:"Scale"
+                        size_hint: (0.3, 1)
+                    Spinner:
+                        id: spinnerScale
+                        background_normal: ""
+                        background_color:[12/255, 77/255, 130/255, 1]
+                        size_hint: 0.6, 1
+                        text: 'Chromatic'
+                        values: 'Chromatic', 'Major', 'Minor'
+                        on_text: root.on_spinner_scale()
+                BoxLayout:
+                    size_hint_x: 0.5
+                    Label:
+                        valign: "middle"
+                        text:"Tonic"
+                        size_hint: (0.3, 1)
+                    Spinner:
+                        id: spinnerTonic
+                        background_normal: ""
+                        background_color:[12/255, 77/255, 130/255, 1]
+                        size_hint: 0.6, 1
+                        text: 'C'
+                        values: "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"
+                        on_text: root.on_spinner_scale()
+            Widget:
+                size_hint_y: 0.1
+                
+            BoxLayout:
+                Widget:
+                    size_hint_x: 1/14
+                Button:
+                    id: C_sharp
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(78/255, 121/255, 167/255, 1)
+                    size_hint_x: 1/7
+                    text:"C#"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: D_sharp
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(78/255, 121/255, 167/255, 1)
+                    size_hint_x: 1/7
+                    text:"D#"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Widget:
+                    size_hint_x: 1/14
+                Widget:
+                    size_hint_x: 1/14
+                    
+                Button:
+                    id: F_sharp
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(78/255, 121/255, 167/255, 1)
+                    size_hint_x: 1/7
+                    text:"F#"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: G_sharp
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(78/255, 121/255, 167/255, 1)
+                    size_hint_x: 1/7
+                    text:"G#"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: A_sharp
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(78/255, 121/255, 167/255, 1)
+                    size_hint_x: 1/7
+                    text:"A#"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Widget:
+                    size_hint_x: 1/14
+                    
+            BoxLayout:
+                Button:
+                    id: C
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(160/255, 203/255, 232/255, 1)
+                    size_hint_x: 1/7
+                    text:"C"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: D
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(160/255, 203/255, 232/255, 1)
+                    size_hint_x: 1/7
+                    text:"D"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: E
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(160/255, 203/255, 232/255, 1)
+                    size_hint_x: 1/7
+                    text:"E"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: F
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(160/255, 203/255, 232/255, 1)
+                    size_hint_x: 1/7
+                    text:"F"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: G
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(160/255, 203/255, 232/255, 1)
+                    size_hint_x: 1/7
+                    text:"G"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: A
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(160/255, 203/255, 232/255, 1)
+                    size_hint_x: 1/7
+                    text:"A"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: B
+                    disabled: True
+                    background_disabled_normal: ""
+                    background_normal: ''
+                    disabled_color: (1, 1, 1, 1)
+                    background_color:(160/255, 203/255, 232/255, 1)
+                    size_hint_x: 1/7
+                    text:"B"
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+        Widget:
+            size_hint_y: 0.1
+            
+    BoxLayout:
+        orientation: "vertical"
+        size_hint_x: 0.05
+        
+        BoxLayout:
+            size_hint_x: 0.9
+            size_hint_y: 0.45
+            orientation: "vertical"
+            Label:
+                text_size: self.size
+                text:"Predicted Scale"
+                font_size: 12
+                size_hint: 1, 0.6
+            TextInput:
+                size_hint_y: 0.4
+                id: scalePredict
+                font_size: 15
+                text: "-"
+                
+        BoxLayout:
+            size_hint_x: 0.9
+            size_hint_y: 0.45
+            orientation: "vertical"
+            Label:
+                text_size: self.size
+                text:"Octave"
+                size_hint: 1.2, 0.3
+            TextInput:
+                size_hint_y: 0.7
+                id: octaveText
+                font_size: 35
+                text: "-"
+                
+        Widget:
+            size_hint_y: 0.1
+            
+    BoxLayout:
+        size_hint_x: 0.2
+        orientation: "vertical"   
+        
+        Widget:
+            size_hint_y: 0.1
+            
+        GridLayout:
+            rows:6
+            
+            Label:
+                text:"Pitch Transcription"
+            
+            #len window
+            BoxLayout:
+                padding: 0, 5, 0, 0
+                Label:
+                    text: "Window Length"
+                    valign: "middle"
+                    font_size: 12
+                    
+                Spinner:
+                    id: spinnerWindow
+                    background_normal: ""
+                    background_color:[12/255, 77/255, 130/255, 1]
+                    font_size: 12
+                    text: '3'
+                    values: '1', '2', '3', '4', '5', '6', '7', '8'
+                    on_text: root.on_spinner_transcribe()
+
+            #type waveform
+            BoxLayout:
+                padding: 0, 5, 0, 0
+                Label:
+                    text: "Waveform"
+                    valign: "middle"
+                    font_size: 12
+                    
+                Spinner:
+                    id: spinnerWaveform
+                    background_normal: ""
+                    background_color:[12/255, 77/255, 130/255, 1]
+                    font_size: 12
+                    text: 'Sine'
+                    values: 'Sine', 'Square', 'Sawtooth'
+                    on_text: root.on_spinner_transcribe()
+                
+            #octave shift
+            BoxLayout:
+                padding: 0, 5, 0, 0
+                Label:
+                    text: "Octave Shift"
+                    valign: "middle"
+                    font_size: 12
+                    
+                Spinner:
+                    id: spinnerShift
+                    background_normal: ""
+                    background_color:[12/255, 77/255, 130/255, 1]
+                    font_size: 12
+                    text: '1'
+                    values: '0.125', '0.25', '0.5', '0.75', '1', '2', '3', '4', '5'
+                    on_text: root.on_spinner_transcribe()
+                
+            #type onsets
+            BoxLayout:
+                padding: 0, 5, 0, 0
+                Label:
+                    text: "Type Onset"
+                    valign: "middle"
+                    font_size: 12
+                    
+                Spinner:
+                    id: spinnerOnset
+                    background_normal: ""
+                    background_color:[12/255, 77/255, 130/255, 1]
+                    font_size: 12
+                    text: 'Pitched Percussive'
+                    values: 'Pitched Percussive', 'Pitched Non-percussive'
+                    on_text: root.on_spinner_transcribe()
+                
+            #Button Transcribe
+            BoxLayout:
+                padding: 0, 10, 0, 0
+                Widget:
+                    size_hint_x: 0.2
+                Button:
+                    id: TranscribeBtn
+                    disabled: True
+                    background_normal: ""
+                    background_color:[101/255, 142/255, 199/255, 1]
+                    text: "Transcribe"
+                    size_hint_x: 0.6
+                    on_press: root.transcribe()
+                Widget:
+                    size_hint_x: 0.2
+                
+        Widget:
+            size_hint_y: 0.1
+            
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: 0.1
+        padding: 10, 0, 0, 0
+        
+        Widget:
+            size_hint_y: 0.4
+            
+        GridLayout:
+            rows:4
+            Label:
+                text:"Zoom/Scroll"
+            Button:
+                id: UpBtn
+                disabled: True
+                background_normal: ""
+                background_color:[101/255, 142/255, 199/255, 1]
+                font_name: 'Arial'
+                text: "˄"
+                size_hint_x: 0.6
+                on_press: root.shiftUp()
+                canvas.before:
+                    Color:
+                        rgba: 48/255, 48/255, 48/255, 1
+                    Line:
+                        width: 0.5
+                        rectangle: self.x, self.y, self.width, self.height
+            BoxLayout:
+                Button:
+                    id: LBtn
+                    disabled: True
+                    background_normal: ""
+                    background_color:[101/255, 142/255, 199/255, 1]
+                    font_name: 'Arial'
+                    text: "˂"
+                    size_hint_x: 0.6
+                    on_press: root.shiftL()
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: PlusBtn
+                    disabled: True
+                    background_normal: ""
+                    background_color:[101/255, 142/255, 199/255, 1]
+                    font_name: 'Arial'
+                    text: "+"
+                    size_hint_x: 0.6
+                    on_press: root.zoom_in()
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: MinusBtn
+                    disabled: True
+                    background_normal: ""
+                    background_color:[101/255, 142/255, 199/255, 1]
+                    font_name: 'Arial'
+                    text: "-"
+                    size_hint_x: 0.6
+                    on_press: root.zoom_out()
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+                Button:
+                    id: RBtn
+                    disabled: True
+                    background_normal: ""
+                    background_color:[101/255, 142/255, 199/255, 1]
+                    font_name: 'Arial'
+                    text: "˃"
+                    size_hint_x: 0.6
+                    on_press: root.shiftR()
+                    canvas.before:
+                        Color:
+                            rgba: 48/255, 48/255, 48/255, 1
+                        Line:
+                            width: 0.5
+                            rectangle: self.x, self.y, self.width, self.height
+            Button:
+                id: DownBtn
+                disabled: True
+                background_normal: ""
+                background_color:[101/255, 142/255, 199/255, 1]
+                font_name: 'Arial'
+                text: "˅"
+                size_hint_x: 0.6
+                on_press: root.shiftDown()
+                canvas.before:
+                    Color:
+                        rgba: 48/255, 48/255, 48/255, 1
+                    Line:
+                        width: 0.5
+                        rectangle: self.x, self.y, self.width, self.height
+                
+        Widget:
+            size_hint_y: 0.4
+        
+    Widget:
+        size_hint_x: 0.05
+    
+                    
+##################################################################################################################   
+<FileChoosePopup>:
+    title: "Choose a .CSV File"
+    size_hint: .9, .9
+    auto_dismiss: False
+
+    BoxLayout:
+        orientation: "vertical"
+        FileChooser:
+            id: filechooser
+            #path: "C:/Users/alexa/Desktop/Codigos/PDS/Nueva carpeta"
+            FileChooserIconLayout
+                
+        BoxLayout:
+            size_hint: (1, 0.1)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            spacing: 20
+            Button:
+                text: "Cancel"
+                on_release: root.dismiss()
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.selection)
+                id: ldbtn
+                disabled: True if filechooser.selection==[] else False
+
+<Matty>
+    orientation: "vertical"
+    
+    BoxLayout:
+        size_hint_y: .05
+        pos_hint: {"top":1}
+        padding: 0, 5, 0, 0
+        
+        BoxLayout:
+            size_hint_x: .1
+            padding: 20, 0, 0, 0
+            Button:
+                id: playBtn
+                background_normal: ""
+                background_color: (0, 166/255, 102/255, 1)
+                bold: True
+                italic: True
+                text: "P L A Y"
+                on_press: root.play()
+                
+        BoxLayout:
+            padding: 20, 0, 0, 0
+            size_hint_x: .4
+            Button:
+                size_hint: 0.2, 1
+                text: "File.."
+                on_press: root.open_popup()
+            TextInput:
+                id: get_file
+                readonly: True
+                size_hint: 0.8, 1
+                
+        BoxLayout:
+            padding: 20, 0, 20, 0
+            size_hint_x: .2
+            Label:
+                size_hint: 0.1, 1
+                text: "Mic"
+            Switch:
+                id: switchMic
+                on_active: root.on_switch()
+                
+        BoxLayout:
+            size_hint_x: .3
+            padding: 0, 0, 20, 0
+            
+            Slider:
+                min: -20
+                max: 10
+                value: 0
+                cursor_size: (15, 15)
+                step: 0.1
+                on_value: root.volumen(self.value)
+                
+            Label:
+                id: valueGain
+                font_size: 13
+                size_hint: 0.1, 1
+                text: "0 dB"    
+        
+    ScrollView:
+        size_hint_y: .55
+        pos_hint: {"y":.4}
+        BoxLayout:
+            size_hint: (1, None)
+            size: (1, 700)
+            TabbedPanel:
+                id: tabs
+                do_default_tab: False
+                tab_height: 30
+                tab_width: 200
+                tab_pos: 'top_mid'
+                
+                TabbedPanelItem:
+                    id: box1
+                    text: 'PDS Real-Time'
+                    
+                TabbedPanelItem:
+                    id: box2
+                    disabled:True
+                    text: 'Pitch Transcription'
+          
+    BoxLayout:
+        size_hint_y:.4
+        
+        TabbedPanel:
+            id: tabs
+            do_default_tab: False
+            tab_height: 30
+            tab_width: 90
+            tab_pos: 'top_mid'
+            
+            TabbedPanelItem:
+                id: tabPiano
+                text: 'Piano'
+                on_release: root.currentTab(self.text)
+            
+            # Create tab 1
+            TabbedPanelItem:
+                id: tablp
+                text: 'Low Pass'
+                on_release: root.currentTab(self.text)
+                
+                
+            # Create 2nd tab
+            TabbedPanelItem:
+                id: tabhp
+                text: 'High Pass'
+                on_release: root.currentTab(self.text)
+                
+          
+            # Create 3rd tab
+            TabbedPanelItem:
+                id: tabbp
+                text: 'Band Pass'
+                on_release: root.currentTab(self.text)
+                
+            # Create 4th tab
+            TabbedPanelItem:
+                id: tabn
+                text: 'Notch'
+                on_release: root.currentTab(self.text)
+                
+            # Create 5th tab
+            TabbedPanelItem:
+                id: tabdelay
+                text: 'Delay'
+                on_release: root.currentTab(self.text)
+                
+            # Create 6th tab
+            TabbedPanelItem:
+                id: tabflanger
+                text: 'Flanger'
+                on_release: root.currentTab(self.text)
+                
+            # Create 7th tab
+            TabbedPanelItem:
+                id: tabChorus
+                text: 'Chorus'
+                on_release: root.currentTab(self.text)
+            
+            # Create 8th tab
+            TabbedPanelItem:
+                id: tabRev
+                text: 'Reverb'
+                on_release: root.currentTab(self.text)
+                
+            # Create 9th tab
+            TabbedPanelItem:
+                id: tabAlien
+                text: 'Alien Vox'
+                on_release: root.currentTab(self.text)
+                
+            # Create 10th tab
+            TabbedPanelItem:
+                id: tabTremolo
+                text: 'Tremolo'
+                on_release: root.currentTab(self.text)
+                
+            # Create 11th tab
+            TabbedPanelItem:
+                id: tabDistortion
+                text: 'Distortion'
+                on_release: root.currentTab(self.text)
+                
+            # Create 12th tab
+            TabbedPanelItem:
+                id: tabVocoder
+                text: 'Vocoder'
+                on_release: root.currentTab(self.text)
+                
