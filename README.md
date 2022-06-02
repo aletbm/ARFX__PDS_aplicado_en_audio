@@ -11,7 +11,7 @@
 
 ## 💡 Descripción
 
-Aplicación de escritorio para procesamiento digital de audio, que cuenta con múltiples efectos y filtros, y un transcriptor de melodías. Fue desarrollado para simular el funcionamiento de plug-ins de audio populares en la industria de la música. Realizado como proyecto final de la materia "Procesamiento digital de señales" dictada en la *Universidad Tecnológica Nacional* de Argentina.
+Aplicación de escritorio para procesamiento digital de audio, que cuenta con múltiples efectos, filtros, y un transcriptor de melodías. Fue desarrollado para simular el funcionamiento de plug-ins de audio populares en la industria de la música. Realizado como proyecto final de la materia "Procesamiento digital de señales" dictada en la *Universidad Tecnológica Nacional* de Argentina.
 
 ## 💻 Lanzar proyecto
 
