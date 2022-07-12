@@ -44,6 +44,12 @@ pip install pandas
 ```
 
 En caso de tener problemas de instalación con PyAudio podemos instalarlo a partir de su [distribución wheels](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio)
+Ademas debemos descomprimir el archivo *garden.rar* en la siguiente direccion 
+
+```
+C:\Users\usr\.kivy\garden\
+```
+para poder visualizar los Knobs de Kivy y que los plots se puedan integrar correctamente en la interfaz grafica.
 
 ### 🎧 Ejecución
 
